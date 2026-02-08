@@ -1,0 +1,11 @@
+# Ignore Data
+data/
+*.csv
+
+# Ignore System/Environment
+venv/
+__pycache__/
+.DS_Store
+
+# Ignore Secrets (Phase 3)
+.env
