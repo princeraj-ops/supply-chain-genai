@@ -1,47 +1,56 @@
-# 📈 AI-Powered Supply Chain & Demand Forecasting
+# 📈 AI-Powered Retail Demand & Pricing Simulator
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://supply-chain-pricing-simulator.streamlit.app/)
 
 ## 🎯 Executive Summary
-This project implements an end-to-end Machine Learning pipeline to forecast retail demand and optimize pricing strategies. By engineering temporal features and training a state-of-the-art XGBoost model, the system accurately predicts future sales volume. 
 
-Beyond pure forecasting, the project features a **Price Elasticity Simulator** that identified a highly inelastic product segment, proving that a modeled price increase could yield a projected **+$38M in net revenue** without catastrophically impacting sales volume.
+This project implements an end-to-end Machine Learning pipeline designed to forecast retail demand and optimize pricing strategies. By engineering complex temporal features and training a state-of-the-art XGBoost model, the system accurately predicts future sales volume based on historical momentum and price fluctuations.
 
-## 🛠️ Tech Stack
-* **Language:** Python 3
-* **Modeling:** XGBoost, Scikit-Learn
-* **Data Manipulation:** Pandas, NumPy
-* **Visualization:** Matplotlib, Seaborn, IPyWidgets
-* **Serialization:** Joblib
+Beyond pure forecasting, the project features a **live web application** that acts as a Price Elasticity Simulator. The simulation identified a highly inelastic product segment, proving mathematically that a modeled +15% price increase could yield a projected **+$38M in net revenue** across the company's portfolio without catastrophically impacting sales volume.
 
-## 🧠 Model Performance & Key Insights
-The predictive engine is powered by an `XGBRegressor` evaluated using a Time-Series split to prevent data leakage.
+## 💻 Live Web Application
 
-* **Final Score:** Mean Absolute Error (MAE) of **6.30** (Highly accurate forecasting).
-* **Feature Engineering Victory:** Engineered a custom `sales_lag_364` feature to capture annual seasonality and holiday cycles. The model identified this long-term memory feature as the **#2 most important driver** of predictive accuracy, beating out recent weekly trends.
-* **Overfitting Check:** Train RMSE (7.88) and Test RMSE (8.17) remained tightly coupled, proving the model is robust and generalized for production.
+**Try the interactive simulator here:** [supply-chain-pricing-simulator.streamlit.app](https://supply-chain-pricing-simulator.streamlit.app/)
 
-## 📊 Business Simulation: The "What-If" Engine
-Machine Learning is only valuable if it drives business decisions. I built an interactive simulation module that applies percentage-based price adjustments to the test set and queries the AI for forecasted reactions.
+The front-end dashboard is built with Streamlit, tailored for non-technical business stakeholders:
 
-**Key Finding:** The simulation revealed strong *inelastic demand*. When simulating a guarded +15% to +20% price adjustment, the minor drop in predicted sales volume was vastly overpowered by the margin increase, highlighting a massive opportunity for strategic price hikes.
+- **Business Levers:** A scenario control slider to simulate percentage-based price adjustments, constrained to historical bounds (-15% to +15%) to prevent AI extrapolation errors.
+- **Context Variables:** Input fields for historical context (Day of the Week, Temporal Lags, Rolling Averages) equipped with UI tooltips explaining the underlying data science concepts.
+- **AI Inference:** Real-time predictions calculating projected unit sales, total daily revenue, and a strategic business insight alert evaluating net profit/loss.
+
+## 🛠️ Tech Stack & Architecture
+
+- **Language:** Python 3
+- **Modeling:** XGBoost (`XGBRegressor`), Scikit-Learn
+- **Data Engineering:** Pandas, NumPy
+- **Web Deployment:** Streamlit Community Cloud
+- **Serialization:** Joblib
+
+## 🧠 Model Performance & Feature Engineering
+
+The predictive engine is evaluated using a Time-Series split to strictly prevent data leakage.
+
+- **Expert-Level Accuracy:** Achieved a Mean Absolute Error (MAE) of **6.30**.
+- **Feature Engineering Victory:** Engineered a custom `sales_lag_364` feature to capture annual seasonality and holiday cycles. The model identified this long-term memory feature as the **#2 most important driver** of predictive accuracy.
+- **Overfitting Guardrails:** Train RMSE (7.88) and Test RMSE (8.17) remained tightly coupled, proving the model is highly robust and generalized for production.
 
 ## 📂 Project Structure
+
 ```text
 SUPPLY_CHAIN_GENAI/
 │
 ├── data/
-│   ├── train.csv               # Raw historical data
-│   └── processed_data.csv      # Cleaned data with engineered lags/rolling means
+│   ├── train.csv                 # Raw historical dataset
+│   └── processed_data.csv        # Cleaned data with engineered lags/rolling means
 │
 ├── models/
-│   └── sales_xgboost.pkl       # Serialized XGBoost brain for production use
+│   └── sales_xgboost.pkl         # Serialized XGBoost brain for production inference
 │
 ├── notebooks/
 │   ├── 01_data_preparation.ipynb # Data cleaning, EDA, and Feature Engineering
-│   └── 02_modeling.ipynb         # Model training, evaluation, and interactive simulation
+│   └── 02_modeling.ipynb         # Model training, evaluation, and macro-simulations
 │
-├── src/
-│   └── data_processing.py      # Core data transformation scripts
-│
-├── app.py                      # (WIP) Front-end dashboard for non-technical users
-├── requirements.txt            # Environment dependencies
-└── README.md                   # Project documentation
+├── app.py                        # Streamlit web application script
+├── requirements.txt              # Environment dependencies for cloud deployment
+└── README.md                     # Project documentation
+```
