@@ -3,16 +3,15 @@ import pandas as pd
 import joblib
 import os
 
-# ---------------------------------------------------------
+
 # 1. APP CONFIGURATION
-# ---------------------------------------------------------
+
 st.set_page_config(page_title="Pricing Simulator", layout="centered")
 st.title("📈 AI Pricing & Demand Simulator")
 st.markdown("Adjust the price to see how the XGBoost model predicts sales volume changes.")
 
-# ---------------------------------------------------------
 # 2. LOAD THE AI BRAIN
-# ---------------------------------------------------------
+
 # @st.cache_resource keeps the model in memory so it doesn't reload on every click
 @st.cache_resource
 def load_model():
@@ -26,10 +25,10 @@ except FileNotFoundError:
     st.error("❌ Model file not found. Please ensure 'sales_xgboost.pkl' is in the 'models' folder.")
     st.stop()
 
-# ---------------------------------------------------------
-# 3. THE USER INTERFACE (SIDEBAR)
-# ---------------------------------------------------------
-st.sidebar.header("🎛️ Scenario Controls")
+
+# 3. THE USER INTERFACE 
+
+st.sidebar.header("Scenario Controls")
 
 # We let the user define the "Current State" of the business
 current_price = st.sidebar.number_input("Current Item Price ($)", min_value=1.0, value=20.0, step=1.0)
@@ -52,9 +51,8 @@ sales_lag_7 = st.sidebar.number_input("Sales Last Week (Lag 7)", value=28)
 sales_lag_364 = st.sidebar.number_input("Sales Last Year (Lag 364)", value=30)
 rolling_mean_7 = st.sidebar.number_input("7-Day Sales Average", value=26.5)
 
-# ---------------------------------------------------------
 # 4. MAKE THE PREDICTION
-# ---------------------------------------------------------
+
 # Create a dataframe exactly how the XGBoost model expects it
 input_data = pd.DataFrame({
     'day_of_week': [day_of_week],
@@ -76,9 +74,9 @@ if st.button("🔮 Run AI Forecast"):
     new_revenue = new_price * prediction
     revenue_diff = new_revenue - baseline_revenue
 
-    # ---------------------------------------------------------
+
     # 5. DISPLAY RESULTS
-    # ---------------------------------------------------------
+   
     st.markdown("### 📊 Forecast Results")
     
     col1, col2, col3 = st.columns(3)
