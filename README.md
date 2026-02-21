@@ -54,3 +54,11 @@ SUPPLY_CHAIN_GENAI/
 ├── requirements.txt              # Environment dependencies for cloud deployment
 └── README.md                     # Project documentation
 ```
+
+## 🚀 How to Run Locally
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/princeraj-ops/supply-chain-genai.git](https://github.com/princeraj-ops/supply-chain-genai.git)
+   cd supply-chain-genai
+   ```
